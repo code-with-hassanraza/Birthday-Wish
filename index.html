@@ -186,7 +186,7 @@ main{position:relative;z-index:1}
 .hearts .hrt.filled path{fill:var(--pink)}
 .hearts .hrt.filled{animation:hPop .45s cubic-bezier(.3,1.8,.5,1)}
 @keyframes hPop{40%{transform:scale(1.45) rotate(-8deg)}}
-.cake-stage{position:relative;display:flex;justify-content:center;margin-top:10px}
+.cake-stage{position:relative;display:flex;justify-content:center;margin-top:10px;touch-action:manipulation}
 #cakeSvg{width:min(88vw,390px);height:auto;overflow:visible}
 .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .22s ease-in-out infinite alternate;transition:transform .25s,opacity .25s}
 .candle.out .flame{animation:none;transform:scale(.05);opacity:0}
@@ -195,14 +195,20 @@ main{position:relative;z-index:1}
 .candle.out .flame-hit{cursor:default}
 .smoke{fill:#C7B6BE;transform-box:fill-box;animation:smokeUp 1s ease-out forwards}
 @keyframes smokeUp{to{transform:translateY(-38px) scale(2.6);opacity:0}}
-.gift{position:absolute;bottom:5%;width:82px;transition:transform .2s}
+.gift{position:absolute;bottom:5%;width:82px;transition:transform .2s;touch-action:manipulation}
 .gift:active{transform:scale(.93)}
 .gift svg{display:block;width:100%;height:auto}
 .gift .lid{transform-box:fill-box;transform-origin:50% 100%;transition:transform .4s cubic-bezier(.3,1.5,.5,1)}
 .gift.open .lid{transform:translate(2px,-15px) rotate(-17deg)}
 .gift.bounce svg{animation:giftJ .55s cubic-bezier(.3,1.6,.5,1)}
 @keyframes giftJ{30%{transform:translateY(-14px) rotate(-4deg)}60%{transform:translateY(0) scale(1.06,.94)}}
+.cake-stage.cut #cakeSvg{animation:cakeCut .65s cubic-bezier(.2,1.35,.4,1)}
+@keyframes cakeCut{0%{transform:rotate(0) scale(1)}25%{transform:rotate(-1.6deg) scale(1.015)}50%{transform:rotate(1.4deg) scale(1.02)}75%{transform:rotate(-.8deg) scale(1.01)}100%{transform:rotate(0) scale(1)}}
+.cake-cut-line{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-dasharray:180;stroke-dashoffset:180;animation:cutLine .7s cubic-bezier(.2,1,.4,1) forwards;pointer-events:none}
+@keyframes cutLine{to{stroke-dashoffset:0}}
 .g1{left:1%} .g2{right:2%;width:66px;bottom:11%}
+.g3{left:15%;bottom:4%;width:62px} .g4{right:15%;bottom:3%;width:64px}
+.g5{left:6%;bottom:22%;width:54px} .g6{right:6%;bottom:22%;width:54px}
 .cake-hint-row{margin-top:20px}
 
 /* wish granted overlay */
@@ -299,16 +305,94 @@ main{position:relative;z-index:1}
   border:2px solid var(--ink);border-radius:6px;display:grid;place-items:center;box-shadow:inset 0 -4px 0 rgba(0,0,0,.35)}
 
 @media (max-width:840px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .sec{padding:64px 0 72px}
   .mix-grid{grid-template-columns:1fr;gap:70px}
+  .mix-copy{font-size:.98rem}
   .disc{width:92px;height:92px;top:-40px;right:-8px}
   .badge{position:static;margin:22px auto 0;display:block}
   .sticker{width:62px;padding:5px}
   .st-s{top:11vh}.st-t{top:9vh}.st-h{top:66vh}.st-b{top:60vh}
   .gift{width:58px}
+  .g2{width:50px}
+  .g3{width:50px;left:12%;bottom:2%}
+  .g4{width:50px;right:12%;bottom:2%}
+  .g5{width:45px;left:2%;bottom:18%}
+  .g6{width:45px;right:2%;bottom:18%}
   .wish-form{flex-direction:column;align-items:stretch}
-  .p-vol input{width:64px}
-  .hero{padding-top:90px}
+  .wish-form .candy-btn{justify-content:center}
+  .wish-sky{min-height:320px}
+  .p-ctrl{flex-wrap:wrap}
+  .p-vol{width:100%;margin-left:0;justify-content:center}
+  .p-vol input{width:min(70vw,180px)}
+  .hero{padding-top:90px;padding-left:12px;padding-right:12px}
+  .hero-sub{max-width:32ch}
+  .pill{font-size:9px;padding:8px 12px}
 }
+
+@media (max-width:600px){
+  .marquee{font-size:9px;letter-spacing:.7px}
+  .m-top,.m-bottom{padding:7px 0}
+  .hero{min-height:100svh;padding-top:78px;padding-bottom:76px}
+  .big-line{font-size:clamp(3rem,16vw,5.4rem)}
+  .ribbon{font-size:clamp(1.45rem,7vw,2.2rem)}
+  .hero-hint{font-size:8px;line-height:1.5;max-width:30ch;margin-left:auto;margin-right:auto}
+  .badge{width:98px;height:98px}
+  .o1{left:2%;top:18%;width:58px;height:58px}
+  .o2{right:2%;top:50%;width:44px;height:44px}
+  .o3{left:5%;bottom:10%;width:72px;height:72px}
+  .st-s{left:2vw;top:14vh}.st-t{right:2vw;top:11vh}.st-h{left:2vw;top:64vh}.st-b{right:2vw;top:59vh}
+  .sec{padding:56px 0 64px}
+  .h2{font-size:clamp(2rem,10vw,3rem)}
+  .sub{font-size:9px;line-height:1.7;padding:0 10px}
+  .candle-status{margin-top:18px}
+  .hearts{gap:5px;flex-wrap:wrap;justify-content:center;max-width:210px}
+  .hearts svg{width:20px;height:20px}
+  .cake-stage{padding:0 4px;margin-top:2px}
+  #cakeSvg{width:min(92vw,370px)}
+  .gift{bottom:1.5%}
+  .g1{left:-1%}
+  .g2{right:-1%;width:46px;bottom:8%}
+  .g3{left:10%;width:46px}
+  .g4{right:10%;width:46px}
+  .g5{left:0;width:40px;bottom:17%}
+  .g6{right:0;width:40px;bottom:17%}
+  .cake-hint-row{font-size:8px;line-height:1.7;padding:0 8px}
+  .player{width:100%}
+  .p-titlebar{font-size:8px;padding:8px 10px}
+  .p-screen{margin:10px 10px 0;padding:8px 9px}
+  .p-ctrl{padding:12px 10px;gap:8px;justify-content:center}
+  .p-btn{width:36px;height:36px}
+  .p-big{width:46px;height:46px}
+  .p-vol{font-size:11px}
+  .disc{width:76px;height:76px;top:-30px;right:4px}
+  .disc-label{width:36px;height:36px;font-size:7px}
+  .wish-sky{min-height:300px}
+  .wish .w-in{max-width:140px;padding:6px 10px;font-size:1.05rem}
+  .wish .w-in span{max-width:96px}
+  .wish-card{padding:38px 18px 22px}
+  .wc-msg{font-size:1.25rem}
+  .wc-sign{font-size:1.35rem}
+  .foot-note{font-size:8px}
+  .signature{font-size:1.8rem}
+}
+
+@media (max-width:380px){
+  .g-window{width:90vw}
+  .g-body{padding:18px 14px 16px;font-size:9px}
+  .big-line{font-size:clamp(2.6rem,15.5vw,4.2rem)}
+  .ribbon{font-size:1.25rem}
+  .hero-sub{font-size:.92rem}
+  .hero-hint{font-size:7px}
+  .sticker{width:52px}
+  #cakeSvg{width:94vw}
+  .gift{display:none}
+  .g1,.g2{display:block}
+  .g1{width:44px}.g2{width:42px}
+  .mix-grid{gap:54px}
+  .candy-btn{font-size:11px;padding:11px 16px}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
@@ -508,8 +592,60 @@ main{position:relative;z-index:1}
             </g>
           </svg>
         </button>
+        <button class="gift g3" id="gift3" aria-label="mystery present">
+          <svg viewBox="0 0 72 68">
+            <rect x="10" y="30" width="52" height="32" rx="3" fill="#FFD23F" stroke="#2A1622" stroke-width="3"/>
+            <rect x="30" y="30" width="12" height="32" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5"/>
+            <g class="lid">
+              <rect x="6" y="20" width="60" height="13" rx="3" fill="#FF5C9E" stroke="#2A1622" stroke-width="3"/>
+              <rect x="30" y="20" width="12" height="13" fill="#FFD23F" stroke="#2A1622" stroke-width="2.5"/>
+              <ellipse cx="24" cy="13" rx="9" ry="5.5" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5" transform="rotate(-18 24 13)"/>
+              <ellipse cx="48" cy="13" rx="9" ry="5.5" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5" transform="rotate(18 48 13)"/>
+              <circle cx="36" cy="14" r="4" fill="#FFD23F" stroke="#2A1622" stroke-width="2.5"/>
+            </g>
+          </svg>
+        </button>
+        <button class="gift g4" id="gift4" aria-label="mystery present">
+          <svg viewBox="0 0 72 68">
+            <rect x="10" y="30" width="52" height="32" rx="3" fill="#FF7E5F" stroke="#2A1622" stroke-width="3"/>
+            <rect x="30" y="30" width="12" height="32" fill="#C9A0F0" stroke="#2A1622" stroke-width="2.5"/>
+            <g class="lid">
+              <rect x="6" y="20" width="60" height="13" rx="3" fill="#C9A0F0" stroke="#2A1622" stroke-width="3"/>
+              <rect x="30" y="20" width="12" height="13" fill="#FF7E5F" stroke="#2A1622" stroke-width="2.5"/>
+              <ellipse cx="24" cy="13" rx="9" ry="5.5" fill="#C9A0F0" stroke="#2A1622" stroke-width="2.5" transform="rotate(-18 24 13)"/>
+              <ellipse cx="48" cy="13" rx="9" ry="5.5" fill="#C9A0F0" stroke="#2A1622" stroke-width="2.5" transform="rotate(18 48 13)"/>
+              <circle cx="36" cy="14" r="4" fill="#FF7E5F" stroke="#2A1622" stroke-width="2.5"/>
+            </g>
+          </svg>
+        </button>
+        <button class="gift g5" id="gift5" aria-label="mystery present">
+          <svg viewBox="0 0 72 68">
+            <rect x="10" y="30" width="52" height="32" rx="3" fill="#FFC9DD" stroke="#2A1622" stroke-width="3"/>
+            <rect x="30" y="30" width="12" height="32" fill="#FFD23F" stroke="#2A1622" stroke-width="2.5"/>
+            <g class="lid">
+              <rect x="6" y="20" width="60" height="13" rx="3" fill="#FFD23F" stroke="#2A1622" stroke-width="3"/>
+              <rect x="30" y="20" width="12" height="13" fill="#FFC9DD" stroke="#2A1622" stroke-width="2.5"/>
+              <ellipse cx="24" cy="13" rx="9" ry="5.5" fill="#FFD23F" stroke="#2A1622" stroke-width="2.5" transform="rotate(-18 24 13)"/>
+              <ellipse cx="48" cy="13" rx="9" ry="5.5" fill="#FFD23F" stroke="#2A1622" stroke-width="2.5" transform="rotate(18 48 13)"/>
+              <circle cx="36" cy="14" r="4" fill="#FFC9DD" stroke="#2A1622" stroke-width="2.5"/>
+            </g>
+          </svg>
+        </button>
+        <button class="gift g6" id="gift6" aria-label="mystery present">
+          <svg viewBox="0 0 72 68">
+            <rect x="10" y="30" width="52" height="32" rx="3" fill="#FFF6E6" stroke="#2A1622" stroke-width="3"/>
+            <rect x="30" y="30" width="12" height="32" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5"/>
+            <g class="lid">
+              <rect x="6" y="20" width="60" height="13" rx="3" fill="#FF5C9E" stroke="#2A1622" stroke-width="3"/>
+              <rect x="30" y="20" width="12" height="13" fill="#FFF6E6" stroke="#2A1622" stroke-width="2.5"/>
+              <ellipse cx="24" cy="13" rx="9" ry="5.5" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5" transform="rotate(-18 24 13)"/>
+              <ellipse cx="48" cy="13" rx="9" ry="5.5" fill="#FF5C9E" stroke="#2A1622" stroke-width="2.5" transform="rotate(18 48 13)"/>
+              <circle cx="36" cy="14" r="4" fill="#FFF6E6" stroke="#2A1622" stroke-width="2.5"/>
+            </g>
+          </svg>
+        </button>
       </div>
-      <p class="tiny pixel cake-hint-row reveal" data-sd="320">the presents open too. obviously.</p>
+      <p class="tiny pixel cake-hint-row reveal" data-sd="320">the presents open too. obviously. · tap the cake to cut it ✦</p>
     </div>
     <div class="scallop sc-blush"></div>
   </section>
@@ -602,7 +738,7 @@ main{position:relative;z-index:1}
 <script>
 /* ============ EDIT ME ============ */
 const CONFIG = {
-  name: "Mira",
+  name: "Shai",
   from: "someone who loves you lots",
 };
 
@@ -712,7 +848,7 @@ const BOOT = [
   '> sprinkling 64,000 sparkles ................... ok',
   '> frosting the cake (extra thick) .............. ok',
   '> charging confetti cannons .................... ok',
-  '> wrapping 2 mystery presents .................. ok',
+  '> wrapping 6 mystery presents .................. ok',
   '> applying glitter: a concerning amount ........ ok',
   '> ready. it\u2019s party time.',
 ];
@@ -910,6 +1046,32 @@ candles.forEach(c=>{
       }, 700);
     }
   });
+});
+
+/* cake cutting */
+let cakeCutCount = 0;
+const cakeStage = $('.cake-stage');
+$('#cakeSvg').addEventListener('click', e=>{
+  if(e.target.closest('.flame-hit') || e.target.closest('.candle')) return;
+  ensureAudio();
+  cakeCutCount++;
+  cakeStage.classList.remove('cut');
+  void cakeStage.offsetWidth;
+  cakeStage.classList.add('cut');
+  const oldLine = $('#cakeSvg .cake-cut-line');
+  if(oldLine) oldLine.remove();
+  const cutLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+  cutLine.setAttribute('x1','178');
+  cutLine.setAttribute('y1','166');
+  cutLine.setAttribute('x2','235');
+  cutLine.setAttribute('y2','348');
+  cutLine.setAttribute('class','cake-cut-line');
+  $('#cakeSvg').appendChild(cutLine);
+  const r = $('#cakeSvg').getBoundingClientRect();
+  burst(r.left+r.width*.58, r.top+r.height*.58, -90, 55, 18, 4.2, ['rect','star']);
+  blip(420,.12,'triangle',.12);
+  setTimeout(()=>cakeStage.classList.remove('cut'),700);
+  toast(cakeCutCount === 1 ? 'cake cut! first slice is yours, Shai ✦' : 'another slice for Shai ✦');
 });
  $('#relight').addEventListener('click', ()=>{
   candles.forEach(c=>c.classList.remove('out'));
